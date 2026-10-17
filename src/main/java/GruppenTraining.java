@@ -11,7 +11,7 @@ public class GruppenTraining extends HundeTraining {
 	}
 	
 	public void setKursPreis(float kursPreis) throws HundeException {
-		if(kursPreis < 0)
+		if(kursPreis <= 0)
 			throw new HundeException("Kurspreis muss größer als 0 sein.");
 		this.kursPreis = kursPreis;
 	}

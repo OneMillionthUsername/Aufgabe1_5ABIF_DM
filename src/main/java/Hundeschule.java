@@ -60,11 +60,11 @@ public class Hundeschule extends HundeTraining {
 	}
 	
 	public boolean hinzufuegen(HundeTraining training) {
-		if(trainings.contains(training))
-			return false;
 		if(training == null)
 			return false;
-		if(trainings.size() > 15)
+		if(trainings.size() >= 15)
+			return false;
+		if(trainings.contains(training))
 			return false;
 		trainings.add(training);
 		return true;
@@ -101,13 +101,16 @@ public class Hundeschule extends HundeTraining {
 	
 	
 	public int anzahlPreisGesamt(float maxPreisGesamt) {
-//		Iterator<HundeTraining> it = trainings.iterator();
-//		int gruppenTrainings = 0;
-//		while(it.hasNext()) {
-//			var t = it.next();
-//			if(t.ge)
-//		}
-		return 0;
+		if(maxPreisGesamt <= 0)
+			return -99;
+		
+		int gruppenTrainings = 0;
+		for (HundeTraining t : trainings) {
+			if(t instanceof GruppenTraining && ((GruppenTraining) t).getKursPreis() < maxPreisGesamt){
+				gruppenTrainings++;
+			}
+		}
+		return gruppenTrainings;
 	}
 	
 	@Override

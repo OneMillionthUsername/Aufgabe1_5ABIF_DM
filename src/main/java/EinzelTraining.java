@@ -11,7 +11,7 @@ public class EinzelTraining extends HundeTraining {
 	}
 	
 	public void setEinzelPreis(float einzelPreis) throws HundeException {
-		if(einzelPreis < 0)
+		if(einzelPreis <= 0)
 			throw new HundeException("Einzelpreis darf nicht kleiner 0 sein.");
 		this.einzelPreis = einzelPreis;
 	}
