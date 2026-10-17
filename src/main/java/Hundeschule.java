@@ -2,26 +2,28 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Objects;
 
-public class Hundeschule extends HundeTraining {
+public class Hundeschule {
 	private String name;
-	private ArrayList<HundeTraining> trainings = null;
+	private ArrayList<HundeTraining> trainings;
 	
-	public Hundeschule(int einheiten, String hund, String trainer, String name, ArrayList<HundeTraining> trainings) throws HundeException {
-		super(einheiten, hund, trainer);
-		setName(name);
-		setTrainings(trainings);
-	}
+//	public Hundeschule(int einheiten, String hund, String trainer, String name, ArrayList<HundeTraining> trainings) throws HundeException {
+//		super(einheiten, hund, trainer);
+//		setName(name);
+//		setTrainings(trainings);
+//	}
 	
-	public Hundeschule(int einheiten, String hund, String trainer, String name) throws HundeException {
-		super(einheiten, hund, trainer);
+	public Hundeschule(String name) throws HundeException {
 		setName(name);
+		trainings = new ArrayList<>();
 	}
 	
 	public String getName() {
 		return name;
 	}
 	
-	public void setName(String name) {
+	public void setName(String name) throws HundeException {
+		if(name == null || name.isBlank())
+			throw new HundeException("Name darf nicht leer sein.");
 		this.name = name;
 	}
 	
@@ -31,11 +33,6 @@ public class Hundeschule extends HundeTraining {
 	
 	public void setTrainings(ArrayList<HundeTraining> trainings) {
 		this.trainings = trainings;
-	}
-	
-	@Override
-	public float preisGesamt() {
-		return 0;
 	}
 	
 	public HundeTraining getTraining(int index) {
@@ -98,7 +95,6 @@ public class Hundeschule extends HundeTraining {
 //		}
 //		return i;
 	}
-	
 	
 	public int anzahlPreisGesamt(float maxPreisGesamt) {
 		if(maxPreisGesamt <= 0)
