@@ -3,7 +3,7 @@ public abstract class HundeTraining {
 	private String hund;
 	private String trainer;
 	
-	public HundeTraining(int einheiten, String hund, String trainer) throws HundeException {
+	public HundeTraining(int einheiten, String hund, String trainer) throws HundeTrainingException {
 		setEinheiten(einheiten);
 		setHund(hund);
 		setTrainer(trainer);
@@ -13,9 +13,9 @@ public abstract class HundeTraining {
 		return einheiten;
 	}
 	
-	public void setEinheiten(int einheiten) throws HundeException {
+	public void setEinheiten(int einheiten) throws HundeTrainingException {
 		if(einheiten < 1)
-			throw new HundeException("Einheiten zu klein.");
+			throw new HundeTrainingException("Einheiten zu klein.");
 		this.einheiten = einheiten;
 	}
 	
@@ -23,9 +23,9 @@ public abstract class HundeTraining {
 		return hund;
 	}
 	
-	public void setHund(String hund) throws HundeException {
+	public void setHund(String hund) throws HundeTrainingException {
 		if(hund == null)
-			throw new HundeException("Hund darf nicht null sein.");
+			throw new HundeTrainingException("Hund darf nicht null sein.");
 		
 		this.hund = hund;
 	}
@@ -34,9 +34,9 @@ public abstract class HundeTraining {
 		return trainer;
 	}
 	
-	public void setTrainer(String trainer) throws HundeException {
+	public void setTrainer(String trainer) throws HundeTrainingException {
 		if(trainer == null)
-			throw new HundeException("Trainer darf nicht null sein.");
+			throw new HundeTrainingException("Trainer darf nicht null sein.");
 		
 		this.trainer = trainer;
 	}

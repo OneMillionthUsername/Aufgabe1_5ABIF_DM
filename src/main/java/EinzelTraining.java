@@ -1,7 +1,7 @@
 public class EinzelTraining extends HundeTraining {
 	private float einzelPreis;
 	
-	public EinzelTraining(int einheiten, String hund, String trainer, float einzelPreis) throws HundeException {
+	public EinzelTraining(int einheiten, String hund, String trainer, float einzelPreis) throws HundeTrainingException {
 		super(einheiten, hund, trainer);
 		setEinzelPreis(einzelPreis);
 	}
@@ -10,9 +10,9 @@ public class EinzelTraining extends HundeTraining {
 		return einzelPreis;
 	}
 	
-	public void setEinzelPreis(float einzelPreis) throws HundeException {
+	public void setEinzelPreis(float einzelPreis) throws HundeTrainingException {
 		if(einzelPreis <= 0)
-			throw new HundeException("Einzelpreis darf nicht kleiner 0 sein.");
+			throw new HundeTrainingException("Einzelpreis darf nicht kleiner 0 sein.");
 		this.einzelPreis = einzelPreis;
 	}
 	

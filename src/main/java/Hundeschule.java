@@ -1,18 +1,10 @@
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Objects;
 
 public class Hundeschule {
 	private String name;
 	private ArrayList<HundeTraining> trainings;
 	
-//	public Hundeschule(int einheiten, String hund, String trainer, String name, ArrayList<HundeTraining> trainings) throws HundeException {
-//		super(einheiten, hund, trainer);
-//		setName(name);
-//		setTrainings(trainings);
-//	}
-	
-	public Hundeschule(String name) throws HundeException {
+	public Hundeschule(String name) throws HundeTrainingException {
 		setName(name);
 		trainings = new ArrayList<>();
 	}
@@ -21,9 +13,9 @@ public class Hundeschule {
 		return name;
 	}
 	
-	public void setName(String name) throws HundeException {
+	public void setName(String name) throws HundeTrainingException {
 		if(name == null || name.isBlank())
-			throw new HundeException("Name darf nicht leer sein.");
+			throw new HundeTrainingException("Name darf nicht leer sein.");
 		this.name = name;
 	}
 	
@@ -31,13 +23,15 @@ public class Hundeschule {
 		return trainings;
 	}
 	
-	public void setTrainings(ArrayList<HundeTraining> trainings) {
+	public void setTrainings(ArrayList<HundeTraining> trainings) throws HundeTrainingException {
+		if (trainings == null)
+			throw new HundeTrainingException("Trainings dürfen nicht null sein.");
 		this.trainings = trainings;
 	}
 	
-	public HundeTraining getTraining(int index) {
+	public HundeTraining getTraining(int index) throws HundeTrainingException {
 		if (index < 0 || index >= trainings.size()) {
-			return null;
+			throw new HundeTrainingException("Ungültiger Index.");
 		}
 		return trainings.get(index);
 //		if (index < 0)
@@ -67,7 +61,11 @@ public class Hundeschule {
 		return true;
 	}
 	
-	public boolean entfernen(HundeTraining training) {
+	public boolean entfernen(HundeTraining training) throws HundeTrainingException {
+		if(training == null)
+			// laut Angabe:
+			// null darf nicht übergeben werden. Das Objekt muss vorhanden sein.
+			throw new HundeTrainingException("Training darf nicht null sein.");
 		if(trainings.contains(training)) {
 			trainings.remove(training);
 			return true;
@@ -75,12 +73,14 @@ public class Hundeschule {
 		return false;
 	}
 	
-	public int entfernen(String trainer) {
-		if(trainer == null)
+	public int entfernen(String trainer) throws HundeTrainingException {
+		if(trainer == null || trainer.isBlank())
 			return -99;
 		
 		int vorher = trainings.size();
 		trainings.removeIf(t -> t.getTrainer().equals(trainer));
+		if(trainings.size() == vorher)
+			throw new HundeTrainingException("Kein passender Trainer gefunden.");
 		return vorher - trainings.size();
 		
 //		int i = 0;
@@ -96,9 +96,9 @@ public class Hundeschule {
 //		return i;
 	}
 	
-	public int anzahlPreisGesamt(float maxPreisGesamt) {
+	public int anzahlPreisGesamt(float maxPreisGesamt) throws HundeTrainingException {
 		if(maxPreisGesamt <= 0)
-			return -99;
+			throw new HundeTrainingException("Gesamtpreis darf nicht negativ sein.");
 		
 		int gruppenTrainings = 0;
 		for (HundeTraining t : trainings) {
