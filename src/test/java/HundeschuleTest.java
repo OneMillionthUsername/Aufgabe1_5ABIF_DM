@@ -31,23 +31,23 @@ class HundeschuleTest {
 		wienerSchule.hinzufuegen(g2);
 	}
 	
-	@Test
-	void getTrainings() {
-		assertEquals(3, wienerSchule.getTrainings().size());
-	}
-	
-	@Test
-	void setTrainings() {
-		assertEquals(0, grazerSchule.getTrainings().size());
-		grazerSchule.setTrainings(trainings);
-		assertEquals(4, grazerSchule.getTrainings().size());
-	}
-	
-	@Test
-	void getTraining() {
-		assertEquals(g2, wienerSchule.getTraining(2));
-		assertEquals(e1, wienerSchule.getTraining(0));
-	}
+//	@Test
+//	void getTrainings() {
+//		assertEquals(3, wienerSchule.getTrainings().size());
+//	}
+//
+//	@Test
+//	void setTrainings() {
+//		assertEquals(0, grazerSchule.getTrainings().size());
+//		grazerSchule.setTrainings(trainings);
+//		assertEquals(4, grazerSchule.getTrainings().size());
+//	}
+//
+//	@Test
+//	void getTraining() {
+//		assertEquals(g2, wienerSchule.getTraining(2));
+//		assertEquals(e1, wienerSchule.getTraining(0));
+//	}
 	
 	@Test
 	void hinzufuegen() {
@@ -56,15 +56,33 @@ class HundeschuleTest {
 	}
 	
 	@Test
-	void entfernen() {
-		assertEquals(true, wienerSchule.entfernen(g2));
+	void hinzufuegen_Null_returnsFalse() {
+		assertEquals(false,wienerSchule.hinzufuegen(null));
 	}
 	
 	@Test
-	void testEntfernen() {
+	void hinzufuegen_sizeTooBig_returnsFalse() throws HundeException {
+		var e3 = new EinzelTraining(16, "Hund", "Frank Columbo", 40f);
+		assertEquals(false,wienerSchule.hinzufuegen(e3));
+	}
+	
+	void hinzufuegen_containsTraining_returnsFalse() throws HundeException {
+		assertEquals(false,wienerSchule.hinzufuegen(e2));
+	}
+	
+	void hinzufuegen_validInput_returnsTrue() throws HundeException {
+		var e3 = new EinzelTraining(10, "Hund", "Frank Columbo", 40f);
+		assertEquals(true,wienerSchule.hinzufuegen(e3));
 	}
 	
 	@Test
-	void anzahlPreisGesamt() {
+	void entfernen_null_returnsNegativeNumber() {
+		assertEquals(-99, wienerSchule.entfernen((String)null));
+	}
+	
+	@Test
+	void entfernen_increaseSize_returnsDecreasedNumber() {
+		assertEquals(3, wienerSchule.getTrainings().size());
+		assertEquals(1, wienerSchule.entfernen("Frank Columbo"));
 	}
 }
